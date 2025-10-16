@@ -1,0 +1,134 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+html * {
+  @apply text-base;
+}
+
+html,
+body {
+  min-width: 300px;
+  max-width: 600px;
+  min-height: 100px;
+  overflow: auto;
+}
+
+body {
+  @apply text-slate-300;
+  background-color: #1f1f1f;
+}
+
+#popup {
+  @apply flex flex-col h-full;
+}
+
+/* Tabs */
+
+.tabs-menu {
+  @apply p-2 flex space-x-4 relative;
+}
+
+.tabs-menu::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-full h-[2px] bg-sky-600;
+}
+
+.tab-btn {
+  @apply cursor-pointer text-lg;
+}
+
+.tab-btn.active {
+  @apply text-sky-600;
+}
+
+.tab-content {
+  @apply px-2 my-6;
+}
+
+/* Section */
+
+.section {
+  @apply relative p-2 mb-2 border rounded border-sky-600;
+}
+
+.section-title {
+  @apply absolute -top-3 left-4 px-2 text-sm font-semibold;
+  background-color: #1f1f1f;
+}
+
+label {
+  @apply mb-2;
+}
+
+input {
+  @apply px-2 py-1 rounded border border-sky-600;
+}
+
+.form-btn {
+  @apply px-2 py-1 rounded border border-sky-600 cursor-pointer;
+}
+
+.form-btn:hover {
+  @apply bg-sky-600 text-slate-100;
+}
+
+.form-btn:active {
+  @apply bg-sky-800 border-sky-800 text-slate-100;
+}
+
+.small-btn {
+  @apply px-1 py-0.5 text-xs;
+}
+
+/* Time section */
+
+.weeks-list {
+  @apply flex flex-col space-y-6;
+}
+
+.weeks-list-item {
+  @apply block;
+}
+
+.week-title {
+  @apply text-base mb-2 flex items-center;
+}
+
+.week-total {
+  @apply ml-2 text-xs text-sky-600 border border-sky-600 px-2 py-1 rounded;
+}
+
+.days-list {
+  @apply flex flex-col space-y-2;
+}
+
+.days-list-item {
+  @apply flex space-x-2 space-y-2 justify-between items-center;
+}
+
+.day-title {
+  @apply w-[30px] text-sm m-0;
+}
+
+.day-time {
+  @apply w-full flex items-center space-x-2;
+}
+
+.day-total {
+  @apply w-[55px] text-xs text-sky-600 inline-flex justify-end;
+}
+
+.time-bar {
+  @apply w-full h-4 flex space-x-0.5;
+}
+
+.time-bar-fill {
+  @apply inline-block h-4 bg-sky-600 rounded;
+}
+
+.time-bar-fill-rest {
+  @apply bg-sky-300;
+}
