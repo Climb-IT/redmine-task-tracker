@@ -1,28 +1,93 @@
-## Usage
+# Redmine Task Tracker Extension
+
+A Chrome extension that helps you track and manage your Redmine tasks directly from your browser.
+
+## Features
+
+- View your Redmine tasks in a convenient sidebar
+- Track time spent on tasks
+- Quick access to your most important Redmine items
+
+## Prerequisites
+
+- npm or yarn
+- Chrome or any Chromium-based browser
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/redmine-extension.git
+   cd redmine-extension
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
+
+3. Build the extension:
+   ```bash
+   npm run build
+   # or
+   yarn build
+   ```
+
+## Loading the Extension in Chrome
+
+1. Open Chrome and navigate to `chrome://extensions/`
+2. Enable "Developer mode" (toggle in the top-right corner)
+3. Click "Load unpacked"
+4. Select the `dist` directory from the project
+
+## Development
+
+To start the development server with hot-reload:
 
 ```bash
-$ npm install # or pnpm install or yarn install
+npm run dev
+# or
+yarn dev
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Building for Production
 
-## Available Scripts
+To build the extension for production:
 
-In the project directory, you can run:
+```bash
+npm run build
+# or
+yarn build
+```
 
-### `npm run dev`
+The production build will be available in the `dist` directory.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+## Technologies Used
 
-### `npm run build`
+- [SolidJS](https://www.solidjs.com/) - A declarative JavaScript library for building user interfaces
+- [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+## Contributing
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Deployment
+## License
 
-Learn more about deploying your application with the [documentations](https://vite.dev/guide/static-deploy.html)
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Support
+
+For support, please open an issue in the GitHub repository.
+
+## Screenshots
+
+![Redmine Task Tracker Screenshot](public/redmine-task-tracker.png)
+
+---
+
+Happy tracking! 🚀
