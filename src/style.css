@@ -4,10 +4,6 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-html * {
-  @apply text-base;
-}
-
 html,
 body {
   min-width: 300px;
@@ -28,7 +24,7 @@ body {
 /* Tabs */
 
 .tabs-menu {
-  @apply p-2 flex space-x-4 relative;
+  @apply p-2 flex items-center space-x-4 relative;
 }
 
 .tabs-menu::after {
@@ -68,7 +64,7 @@ input {
 }
 
 .form-btn {
-  @apply px-2 py-1 rounded border border-sky-600 cursor-pointer;
+  @apply text-base px-2 py-1 rounded border border-sky-600 cursor-pointer;
 }
 
 .form-btn:hover {
