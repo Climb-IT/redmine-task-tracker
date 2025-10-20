@@ -10,7 +10,7 @@ function Issues(props) {
             <ul class="flex flex-col">
               <For each={props.store.issues}>
                 {(issue) => (
-                  <li title={`${issue.assigned_to.name} - ${issue.subject}`}>
+                  <li>
                     <p class="text-base truncate">
                       <a
                         href={`${site.url}/issues/${issue.id}`}

@@ -52,11 +52,11 @@ function Popup() {
     sites: [],
     issues: [],
     timeEntries: {},
+    lastRefresh: 0,
     weeks: [],
     from: "",
     to: "",
     loading: false,
-    version: "",
   });
   const [tab, setTab] = createSignal("Issues");
   const activeTab = createMemo(() => tabs.find((t) => t.name === tab()));
@@ -68,12 +68,14 @@ function Popup() {
         fetchIssues(store.sites),
         fetchTimeEntries(store.sites, store.from, store.to),
       ]);
-
+      const lastRefresh = Date.now();
       // Update store reactively
+      chrome.storage?.local.set({ lastRefresh });
       setStore({
         loading: false,
         issues: Array.isArray(issues) ? issues : [],
         timeEntries: timeEntries || {},
+        lastRefresh,
       });
     } catch (error) {
       console.error("Error refreshing data:", error);
@@ -106,7 +108,9 @@ function Popup() {
     chrome.storage?.local.get("timeEntries", (result) => {
       setStore("timeEntries", result.timeEntries || {});
     });
-    setStore("version", chrome.runtime.getManifest().version);
+    chrome.storage?.local.get("lastRefresh", (result) => {
+      setStore("lastRefresh", result.lastRefresh || 0);
+    });
   });
 
   return (
@@ -120,11 +124,13 @@ function Popup() {
             {t.name}
           </button>
         ))}
+        <Show when={store.lastRefresh}>
+          <p>{new Date(store.lastRefresh).toLocaleString()}</p>
+        </Show>
         <Button onClick={refresh}>
           <Show when={store.loading}>Loading...</Show>
           <Show when={!store.loading}>Refresh</Show>
         </Button>
-        <p>{store.version}-dev</p>
       </div>
       <div class="tab-content">{activeTab()?.component({ store }) || null}</div>
     </div>
