@@ -6,8 +6,7 @@
 
 html,
 body {
-  min-width: 460px;
-  max-width: 600px;
+  min-width: 320px;
   min-height: 100px;
   overflow: auto;
 }
@@ -17,7 +16,7 @@ body {
   background-color: #1f1f1f;
 }
 
-#popup {
+#redmine-task-tracker {
   @apply flex flex-col h-full;
 }
 
@@ -30,6 +29,20 @@ body {
 .tabs-menu::after {
   content: "";
   @apply absolute bottom-0 left-0 w-full h-[2px] bg-sky-600;
+}
+
+button.icon {
+  @apply cursor-pointer;
+}
+
+button.icon svg {
+  fill: var(--icon-color);
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+button.icon.loading svg {
+  @apply fill-sky-600 animate-spin;
 }
 
 .tab-btn {
@@ -47,7 +60,9 @@ body {
 /* Section */
 
 .section {
-  @apply relative p-2 mb-2 border rounded border-sky-600;
+  @apply relative p-2 mb-4 border rounded border-sky-600;
+  --section-color: var(--color-sky-600);
+  border-color: var(--section-color);
 }
 
 .section-title {
@@ -77,6 +92,50 @@ input {
 
 .small-btn {
   @apply px-1 py-0.5 text-xs;
+}
+
+/* Issues sectiom */
+
+.issue-link {
+  @apply cursor-pointer text-sm text-white rounded px-1 py-0.5;
+  --issue-link-bg-color: var(--color-slate-600);
+  background-color: var(--issue-link-bg-color);
+}
+
+.issue-link:hover {
+  --issue-link-bg-color: var(--color-slate-800);
+}
+
+.issue-link.bug {
+  --issue-link-bg-color: var(--color-red-600);
+}
+
+.issue-link.bug:hover {
+  --issue-link-bg-color: var(--color-red-800);
+}
+
+.issue-link.task {
+  --issue-link-bg-color: var(--color-purple-600);
+}
+
+.issue-link.task:hover {
+  --issue-link-bg-color: var(--color-purple-800);
+}
+
+.issue-link.feature {
+  --issue-link-bg-color: var(--color-sky-600);
+}
+
+.issue-link.feature:hover {
+  --issue-link-bg-color: var(--color-sky-800);
+}
+
+.issue-link.support {
+  --issue-link-bg-color: var(--color-green-600);
+}
+
+.issue-link.support:hover {
+  --issue-link-bg-color: var(--color-green-800);
 }
 
 /* Time section */
@@ -123,8 +182,40 @@ input {
 
 .time-bar-fill {
   @apply inline-block h-4 bg-sky-600 rounded;
+  --time-bar-fill-color: var(--color-sky-600);
+  background-color: var(--time-bar-fill-color);
 }
 
 .time-bar-fill-rest {
-  @apply bg-sky-300;
+  @apply inline-block h-4 rounded;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-sky-300),
+    var(--color-sky-300) 5px,
+    var(--color-sky-100) 5px,
+    var(--color-sky-100) 10px
+  );
+  background-size: 200% 200%;
+}
+
+/* Modal */
+.modal {
+  @apply fixed top-0 left-0 z-200 w-screen h-screen;
+  --modal-width: 800px;
+  --modal-height: 400px;
+}
+
+.overlay {
+  @apply absolute top-0 left-0 w-full h-full z-0 bg-black opacity-50;
+}
+
+.modal-content {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-1 bg-white text-slate-900 rounded shadow-lg p-2;
+  @apply grid grid-rows-[auto_1fr_auto] overflow-auto;
+  width: min(90vw, var(--modal-width));
+  height: min(90vh, var(--modal-height));
+}
+
+.modal-actions {
+  @apply flex justify-end space-x-2;
 }

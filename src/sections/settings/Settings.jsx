@@ -1,24 +1,19 @@
-import { onMount } from "solid-js";
 import { createStore } from "solid-js/store";
+import { Button } from "@/ui";
+import useStore, { storage } from "@/store";
 import RedmineSection from "./Redmine";
-import Button from "../components/Button";
 
 function Settings() {
+  const [store, { setStore }] = useStore();
   const [state, setState] = createStore({
-    sites: [],
-  });
-
-  onMount(() => {
-    chrome.storage?.local.get("redmineSites", (result) => {
-      const sites = result.redmineSites;
-      setState({ sites: Array.isArray(sites) ? sites : [] });
-    });
+    sites: store.sites.map((site) => ({ ...site })),
   });
 
   function onSave() {
-    chrome.storage?.local.set({
-      redmineSites: state.sites.filter((s) => s.url && s.apiKey),
+    storage.set({
+      sites: state.sites.filter((s) => s.url && s.apiKey),
     });
+    setStore({ sites: state.sites });
   }
 
   return (

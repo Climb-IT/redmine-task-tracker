@@ -1,7 +1,8 @@
 {
-  "name": "redmine-extension",
+  "name": "redmine-task-tracker",
+  "description": "THIS EXTENSION IS FOR BETA TESTING",
   "private": true,
-  "version": "0.1.1-devs",
+  "version": "0.1.2-devs",
   "type": "module",
   "files": [
     "dist"
