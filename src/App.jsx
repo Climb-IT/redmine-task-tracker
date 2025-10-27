@@ -170,10 +170,7 @@ function App() {
                   name: field,
                 })),
               ]);
-              downloadCSV(
-                csv,
-                `Miu Razvan - timesheet (${month.from} - ${month.to}).csv`
-              );
+              downloadCSV(csv, `Timesheet (${month.from} - ${month.to}).csv`);
             } catch (error) {
               throw error;
             }
