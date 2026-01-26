@@ -1,4 +1,4 @@
-import { proxyUrl } from "@/utils/api";
+import { proxyUrl } from '@/utils/api';
 
 function serializeTimeEntry(timeEntry, site) {
   return {
@@ -20,7 +20,7 @@ async function fetchTimeEntries(site, from, to, offset = 0, limit = 100) {
       `${proxyUrl}${site.url}/time_entries.json?user_id=me&sort=updated_on:desc&from=${from}&to=${to}&offset=${offset}&limit=${limit}`,
       {
         headers: {
-          "X-Redmine-API-Key": site.apiKey,
+          'X-Redmine-API-Key': site.apiKey,
         },
       }
     );
@@ -31,11 +31,15 @@ async function fetchTimeEntries(site, from, to, offset = 0, limit = 100) {
 
     const data = await response.json();
     const filteredProjects =
-      site.filteredProjects?.split(",").map((p) => p.trim().toLowerCase()) ||
+      site.filteredProjects?.split(',').map((p) => p.trim().toLowerCase()) ||
       [];
+
     let entries = data.time_entries
       .filter(
-        (entry) => !filteredProjects.includes(entry.project.name.toLowerCase())
+        (entry) =>
+          !filteredProjects.includes(
+            !!entry.issue?.id && entry.project.name.toLowerCase()
+          )
       )
       .map((entry) => serializeTimeEntry(entry, site));
     // If there are more entries to fetch

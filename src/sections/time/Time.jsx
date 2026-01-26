@@ -1,9 +1,9 @@
-import { createMemo, createEffect } from "solid-js";
-import { For } from "solid-js/web";
-import Section from "@/ui/Section";
-import { toLocaleDateString } from "@/utils";
-import useStore from "@/store";
-import { Tooltip } from "@/ui";
+import { createMemo, createEffect } from 'solid-js';
+import { For } from 'solid-js/web';
+import Section from '@/ui/Section';
+import { toLocaleDateString } from '@/utils';
+import useStore from '@/store';
+import { Tooltip } from '@/ui';
 
 const HOURS_PER_DAY = 8;
 
@@ -27,7 +27,7 @@ function TimeBar(props) {
               <a
                 href={entry.url}
                 class="time-bar-fill"
-                style={{ width: `${w}%`, "--time-bar-fill-color": entry.color }}
+                style={{ width: `${w}%`, '--time-bar-fill-color': entry.color }}
                 target="_blank"
               />
             }
@@ -55,7 +55,7 @@ function Time() {
 
   const timeEntries = createMemo(() => {
     return store.sites.reduce((acc, site) => {
-      Object.entries(site.timeEntries).forEach(([day, entries]) => {
+      Object.entries(site.timeEntries || {}).forEach(([day, entries]) => {
         if (!acc[day]) {
           acc[day] = [];
         }
@@ -101,7 +101,7 @@ function Time() {
               return (
                 <li class="weeks-list-item">
                   <p class="week-title">
-                    {toLocaleDateString(firstDay)} -{" "}
+                    {toLocaleDateString(firstDay)} -{' '}
                     {toLocaleDateString(lastDay)}
                     <span class="week-total">
                       {totals().perWeek[`${firstDay}_${lastDay}`] || 0}h
@@ -112,8 +112,8 @@ function Time() {
                       {(day) => (
                         <li class="days-list-item">
                           <p class="day-title">
-                            {toLocaleDateString(day, "en-US", {
-                              weekday: "short",
+                            {toLocaleDateString(day, 'en-US', {
+                              weekday: 'short',
                             })}
                           </p>
                           <div class="day-time">

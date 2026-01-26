@@ -1,4 +1,4 @@
-import { proxyUrl } from "@/utils/api";
+import { proxyUrl } from '@/utils/api';
 
 function serializeIssue(issue, site) {
   return {
@@ -10,11 +10,11 @@ async function fetchIssues(site, userId, offset = 0, limit = 100) {
   try {
     const response = await fetch(
       `${proxyUrl}${site.url}/issues.json?assigned_to_id=${
-        userId || "me"
+        userId || 'me'
       }&sort=priority:desc,status:desc,updated_on:desc&limit=${limit}&offset=${offset}`,
       {
         headers: {
-          "X-Redmine-API-Key": site.apiKey,
+          'X-Redmine-API-Key': site.apiKey,
         },
       }
     );
@@ -43,11 +43,11 @@ export async function fetchIssuesByIds(site, ids, offset = 0, limit = 100) {
   try {
     const response = await fetch(
       `${proxyUrl}${site.url}/issues.json?issue_id=${ids.join(
-        ","
+        ','
       )}&status_id=*&limit=${limit}&offset=${offset}&`,
       {
         headers: {
-          "X-Redmine-API-Key": site.apiKey,
+          'X-Redmine-API-Key': site.apiKey,
         },
       }
     );

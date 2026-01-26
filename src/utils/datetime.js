@@ -1,3 +1,7 @@
+function padZero(num) {
+  return num.toString().padStart(2, '0');
+}
+
 export function toLocaleDateString(date, ...options) {
   return new Date(date).toLocaleDateString(...options);
 }
@@ -22,7 +26,7 @@ export function splitMonthIntoWorkWeeks(year, month, currentDay) {
       days++;
     }
 
-    currentWeek.push(date.toISOString().split("T")[0]);
+    currentWeek.push(date.toISOString().split('T')[0]);
 
     // Friday (5) ends a workweek
     if (dayOfWeek === 5 || day === days) {
@@ -40,8 +44,8 @@ export function getCurrentMonth() {
   const month = now.getMonth();
   const day = now.getDate();
   const totalDays = makeUTCDate(year, month + 1, 0).getDate();
-  const from = `${year}-${month + 1}-01`;
-  const to = `${year}-${month + 1}-${totalDays}`;
+  const from = `${year}-${padZero(month + 1)}-01`;
+  const to = `${year}-${padZero(month + 1)}-${padZero(totalDays)}`;
   const weeks = splitMonthIntoWorkWeeks(year, month, day);
   return { day, from, to, weeks, totalDays };
 }

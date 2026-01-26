@@ -1,38 +1,33 @@
-import { createSignal, createMemo } from "solid-js";
-import { Issues, Time, Settings } from "./sections";
-import { Tooltip, Icon } from "./ui";
+import { createSignal, createMemo } from 'solid-js';
+import { Issues, Time, Settings } from './sections';
+import { Tooltip, Icon } from './ui';
 import {
   loadUsers,
   loadIssues,
   loadTimeEntries,
   fetchIssuesByIds,
-} from "./api";
-import useStore, { storage } from "./store";
-import RefreshIcon from "@/assets/Refresh";
-import DownloadIcon from "@/assets/Download";
-import { arrayToCSV, downloadCSV } from "./utils";
+} from './api';
+import useStore, { storage } from './store';
+import RefreshIcon from '@/assets/Refresh';
+import DownloadIcon from '@/assets/Download';
+import { arrayToCSV, downloadCSV } from './utils';
 
 const tabs = [
-  { name: "Issues", component: Issues },
-  { name: "Time", component: Time },
-  { name: "Settings", component: Settings },
+  { name: 'Issues', component: Issues },
+  { name: 'Time', component: Time },
+  { name: 'Settings', component: Settings },
 ];
 
 function App() {
   const [store, { setStore, setLoading, setLoaded }] = useStore();
   const month = store.currentMonth;
-  const [tab, setTab] = createSignal("Issues");
+  const [tab, setTab] = createSignal('Issues');
   const activeTab = createMemo(() => tabs.find((t) => t.name === tab()));
 
   async function refresh() {
     setLoading(true);
     try {
-      let users = store.sites.reduce((acc, site) => {
-        if (site.user) {
-          acc.push(site.user);
-        }
-        return acc;
-      }, []);
+      let users = store.sites.map((site) => site.user);
       if (!users.length) {
         users = await loadUsers(store.sites);
       }
@@ -71,7 +66,7 @@ function App() {
         {tabs.map((t) => (
           <button
             onClick={() => setTab(t.name)}
-            classList={{ "tab-btn": true, active: t.name === tab() }}
+            classList={{ 'tab-btn': true, active: t.name === tab() }}
           >
             {t.name}
           </button>
@@ -88,7 +83,11 @@ function App() {
           }
         >
           <div class="bg-sky-600 text-white rounded p-2">
-            <p>{new Date(store.lastRefresh).toLocaleString()}</p>
+            <p>
+              {store.lastRefresh !== 0
+                ? new Date(store.lastRefresh).toLocaleString()
+                : 'Refresh data'}
+            </p>
           </div>
         </Tooltip>
         <Icon
@@ -106,7 +105,7 @@ function App() {
                     entries.push({
                       ...entry,
                       spent_on: new Date(entry.spent_on).toLocaleDateString(
-                        "en-GB"
+                        'en-GB'
                       ),
                       site_url: site.url,
                       user_id: site.user.id,
@@ -156,15 +155,15 @@ function App() {
                 };
               });
               const csv = arrayToCSV(entriesWithIssues, [
-                { key: "project", name: "Project" },
-                { key: "spent_on", name: "Date" },
-                { key: "user_id", name: "User ID" },
-                { key: "user_fullname", name: "User Fullname" },
-                { key: "user_login", name: "User Login" },
-                { key: "activity", name: "Activity" },
-                { key: "issue_name", name: "Issue" },
-                { key: "comments", name: "Comments" },
-                { key: "hours", name: "Hours" },
+                { key: 'project', name: 'Project' },
+                { key: 'spent_on', name: 'Date' },
+                { key: 'user_id', name: 'User ID' },
+                { key: 'user_fullname', name: 'User Fullname' },
+                { key: 'user_login', name: 'User Login' },
+                { key: 'activity', name: 'Activity' },
+                { key: 'issue_name', name: 'Issue' },
+                { key: 'comments', name: 'Comments' },
+                { key: 'hours', name: 'Hours' },
                 ...Array.from(custom_fields).map((field) => ({
                   key: field,
                   name: field,

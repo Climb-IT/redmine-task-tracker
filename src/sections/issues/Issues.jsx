@@ -1,20 +1,13 @@
-import { createMemo } from "solid-js";
-import { For } from "solid-js/web";
-import Section from "@/ui/Section";
-import { useSites } from "@/store";
+import { For } from 'solid-js/web';
+import Section from '@/ui/Section';
+import { useSites } from '@/store';
 
 function getTrackerName(name) {
-  return name.toLowerCase().replace(" ", "-");
+  return name.toLowerCase().replace(' ', '-');
 }
 
 function Issues() {
   const [sites] = useSites();
-
-  const issues = createMemo(() =>
-    sites.reduce((acc, site) => {
-      return [...acc, ...site.issues];
-    }, [])
-  );
 
   return (
     <div id="issues">
